@@ -17,6 +17,8 @@ RAG 에 활용할 문서를 아래 빨간색 박스로 표시한 부분을 통�
 - RAG
 ![화면 기록 2024-08-17 오후 6 37 22](https://github.com/user-attachments/assets/d36e6585-7d24-4578-92d8-1341283befba)
 
+<br/>
+
 - Multi Modal
 ![2024-08-185 48 56-ezgif com-resize](https://github.com/user-attachments/assets/8cf1d7c3-1ce0-45fc-83bc-3e5cb29e269b)
 
