@@ -61,7 +61,7 @@ source venv/bin/activate
 
 ### git clone
 ```
-git clone https://github.com/SimJunSik/rag_agent_ex.git
+git clone https://github.com/SimJunSik/rag_agent_example.git
 
 cd rag_agent_ex
 ```
