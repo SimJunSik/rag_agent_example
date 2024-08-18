@@ -65,7 +65,9 @@ async def ask_question_stream(
     if file:
         content = await file.read()
         encoded_content = base64.b64encode(content).decode("utf-8")
-    gen = generate_answer_service.generate_answer_with_stream(query, session_id, encoded_content)
+    gen = generate_answer_service.generate_answer_with_stream(
+        query, session_id, encoded_content
+    )
     return StreamingResponse(gen, media_type="text/event-stream")
 
 

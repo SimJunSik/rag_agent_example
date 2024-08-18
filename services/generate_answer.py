@@ -1,4 +1,3 @@
-import base64
 from operator import itemgetter
 from typing import AsyncGenerator, Optional
 from langchain_core.output_parsers import StrOutputParser
@@ -48,7 +47,6 @@ class GenerateAnswerService:
             | llm
             | StrOutputParser()
         )
-    
 
     def init_generate_answer_chain_with_image(
         self,
@@ -58,13 +56,11 @@ class GenerateAnswerService:
     ) -> Runnable:
         llm = self.llm_service.get_llm(model_name=model_name, streaming=streaming)
 
-        prompt = self.prompt_service.get_prompt_template_with_image(inputs.query, inputs.context)
-
-        return (
-            prompt
-            | llm
-            | StrOutputParser()
+        prompt = self.prompt_service.get_prompt_template_with_image(
+            inputs.query, inputs.context
         )
+
+        return prompt | llm | StrOutputParser()
 
     def generate_answer(self, query: str) -> str:
         relevent_documents = self.vector_db_service.get_relevent_documents(query)
@@ -99,7 +95,9 @@ class GenerateAnswerService:
             self.db.close()
 
             inputs = ChainInput(query=query, context=context)
-            chain = self.init_generate_answer_chain(inputs, memory=memory, streaming=True)
+            chain = self.init_generate_answer_chain(
+                inputs, memory=memory, streaming=True
+            )
 
         config = RunnableConfig(
             callbacks=[ChainHistoryHandler(query, session_id)],

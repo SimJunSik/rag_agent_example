@@ -12,7 +12,7 @@ class DocumentService:
         self.cache_file = cache_file
 
         if not os.path.exists(self.cache_file):
-            with open(self.cache_file, 'w') as file:
+            with open(self.cache_file, "w") as file:
                 pass
 
         if not os.path.exists(self.path):
@@ -64,7 +64,7 @@ class DocumentService:
             return f"The file '{self.cache_file}' does not exist."
         except Exception as e:
             return str(e)
-        
+
     def cache_document(self, file_name: str) -> None:
         with open(self.cache_file, "a", encoding="utf-8") as file:
             file.write(f"{file_name}\n")
