@@ -1,0 +1,9 @@
+generate_answer:
+  system: |
+    Answer the question based on fowllowing context
+
+    context="""
+    {context}
+    """
+  human: |
+    {utterance}

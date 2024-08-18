@@ -1,0 +1,25 @@
+default_language_version:
+  python: python3.9
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-json
+      - id: end-of-file-fixer
+        exclude: ^(packages/)
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-case-conflict
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: debug-statements
+  - repo: https://github.com/psf/black
+    rev: 24.4.0
+    hooks:
+      - id: black
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.1
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]

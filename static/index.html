@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangChain Client</title>
+
+    <style>
+        .new-query-and-response-wrapper {
+            margin-bottom: 20px;
+        }
+        .new-query {
+            background-color: gray;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+        #query-stream {
+            width: 400px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>파일 업로드</h2>
+    <form id="upload-form" enctype="multipart/form-data">
+        <label for="file">파일 선택:</label><br>
+        <input type="file" id="file" name="file" required><br><br>
+        <input type="submit" value="업로드">
+        <div id="upload-response"></div>
+    </form>
+
+    <br/><br/>
+
+    <hr/>
+
+    <form id="query-form-stream" enctype="multipart/form-data">
+        <input type="text" id="query-stream" name="query" placeholder="질문을 입력하세요" required>
+        <br/><br/>
+        <div>
+            * 이미지를 선택하고 이미지에 대한 질문을 입력할 수도 있습니다
+            <input type="file" id="query-file" name="query-file" accept="image/*" required>
+            <div id="preview">
+                <img id="image-preview" src="#" alt="Image Preview" style="display:none; max-width: 500px;"/>
+            </div>
+        </div>
+    </form>
+    <h2>Q&A 히스토리</h2>
+    <div id="response-stream">
+
+    </div>
+
+    <script>
+        const submitForm = async (e) => {
+            e.preventDefault();
+
+            const query = document.getElementById('query-stream').value;
+            const fileInput = document.querySelector('input[name="query-file"]');
+            const file = fileInput.files[0];
+
+            const newQueryAndResponseWrapper = document.createElement('div');
+            const newQueryElement = document.createElement('div');
+            const newResponseElement = document.createElement('div');
+
+            newQueryAndResponseWrapper.className = "new-query-and-response-wrapper";
+            newQueryElement.className = "new-query";
+            newResponseElement.className = "new-response";
+
+            newQueryElement.innerHTML = `<img id="image-preview-${query}" src="#" alt="Image Preview" style="display:none; max-width: 500px;"/><br/><br/>${query}`;
+            const image = document.getElementById("query-file").files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById(`image-preview-${query}`);
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            }
+            
+            newResponseElement.innerHTML = ``;
+
+            newQueryAndResponseWrapper.appendChild(newQueryElement);
+            newQueryAndResponseWrapper.appendChild(newResponseElement);
+            responseElement.appendChild(newQueryAndResponseWrapper);
+
+            const formData = new FormData();
+            formData.append('query', query);
+            if (file) {
+                formData.append('file', file);
+            }
+
+            const response = await fetch(`/ask_stream`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                newResponseElement.innerHTML += `${chunk}`;
+            }
+        };
+
+        document.getElementById('query-stream').addEventListener('keypress', function(event) {
+            const queryInput = document.getElementById('query-stream');
+
+            if (event.key === 'Enter' && queryInput.value.trim() !== '') {
+                submitForm(event);
+                queryInput.value = '';
+                const imagePreview = document.getElementById('image-preview');
+                imagePreview.style.display = 'none';
+
+                const fileInput = document.getElementById('query-file');
+                fileInput.value = '';
+            }
+        });
+
+        const streamForm = document.getElementById('query-form-stream');
+        const responseElement = document.getElementById('response-stream');
+
+        const uploadForm = document.getElementById('upload-form');
+        uploadForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(uploadForm);
+            const responseElement = document.getElementById('upload-response');
+
+            try {
+                responseElement.innerHTML = `<div>업로드 중입니다. 잠시만 기다려주세요.<br/><br/></div>`;
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    responseElement.innerHTML = `<div>업로드 성공<br/><br/></div>`;
+                } else {
+                    responseElement.innerHTML = `<div>업로드 실패<br/><br/></div>`;
+                }
+            } catch (error) {
+                responseElement.innerHTML = `<div>Error: ${error}</div>`;
+            }
+        };
+
+        document.getElementById('query-file').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById('image-preview');
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            } else {
+                const imagePreview = document.getElementById('image-preview');
+                imagePreview.style.display = 'none';
+                imagePreview.src = '#';
+            }
+        });
+    </script>
+</body>
+</html>
