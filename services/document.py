@@ -12,7 +12,7 @@ class DocumentService:
         self.cache_file = cache_file
 
         if not os.path.exists(self.cache_file):
-            with open(self.cache_file, "w") as file:
+            with open(self.cache_file, "w"):
                 pass
 
         if not os.path.exists(self.path):
