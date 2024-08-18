@@ -25,6 +25,11 @@
 <body>
     <h2>파일 업로드</h2>
     <form id="upload-form" enctype="multipart/form-data">
+        <p>
+            문서 용량에 따라 RAG 에서 사용하는 저장소에 저장되는 시간이 길어질 수 있습니다.
+            <br/>
+            저장이 완료되면 완료 메세지가 표시됩니다.
+        </p>
         <label for="file">파일 선택:</label><br>
         <input type="file" id="file" name="file" required><br><br>
         <input type="submit" value="업로드">
