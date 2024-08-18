@@ -1,7 +1,7 @@
 # 소개
 ### FastAPI 와 LangChain + RAG 를 사용한 대화형 AI 연습 프로젝트
 
-<img width="993" alt="스크린샷 2024-08-18 오전 9 45 43" src="https://github.com/user-attachments/assets/b9ec7c7e-4862-480c-bdba-3d526c1eb48d">
+<img width="993" alt="스크린샷 2024-08-18 오전 9 45 43" src="https://github.com/user-attachments/assets/083f0935-f8d6-403a-9ba3-4a167ed33f42">
 
 ### 사용 방법
 ```
