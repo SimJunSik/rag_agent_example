@@ -3,6 +3,23 @@
 
 <img width="993" alt="스크린샷 2024-08-18 오전 9 45 43" src="https://github.com/user-attachments/assets/b9ec7c7e-4862-480c-bdba-3d526c1eb48d">
 
+### 사용 방법
+```
+RAG 에 활용할 문서를 아래 빨간색 박스로 표시한 부분을 통해 업로드 해주세요.
+문서 용량에 따라 RAG 에서 사용하는 저장소에 저장되는 시간이 길어질 수 있습니다.
+저장이 완료되면 완료 메세지가 표시됩니다.
+```
+![스크린샷 2024-08-18 오후 5 58 11](https://github.com/user-attachments/assets/d8e0bb7f-35ad-4e38-b942-0961e73eae53)
+
+![스크린샷 2024-08-18 오후 6 00 25](https://github.com/user-attachments/assets/7ecdaeb6-7cc6-4d43-88aa-bc8a5c0c690f)
+
+### 사용 예시 화면
+- RAG
+![화면 기록 2024-08-17 오후 6 37 22](https://github.com/user-attachments/assets/d36e6585-7d24-4578-92d8-1341283befba)
+
+- Multi Modal
+![2024-08-185 48 56-ezgif com-resize](https://github.com/user-attachments/assets/8cf1d7c3-1ce0-45fc-83bc-3e5cb29e269b)
+
 </br><br/>
 
 # 기술 스택
@@ -20,6 +37,7 @@
 - 대화를 이어나갈 수 있는 메모리
 - Streaming 을 통한 챗봇 UI
 - File upload 를 통한 문서 추가
+- 선택한 이미지에 대한 질답
 
 <br/><br/>
 
@@ -67,6 +85,3 @@ http://127.0.0.1:8000/
 ```
 
 <br/><br/>
-
-# 사용 예시 화면
-![화면 기록 2024-08-17 오후 6 37 22](https://github.com/user-attachments/assets/d36e6585-7d24-4578-92d8-1341283befba)
