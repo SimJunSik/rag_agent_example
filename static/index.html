@@ -72,7 +72,7 @@
             newQueryElement.className = "new-query";
             newResponseElement.className = "new-response";
 
-            newQueryElement.innerHTML = `<img id="image-preview-${query}" src="#" alt="Image Preview" style="display:none; max-width: 500px;"/><br/><br/>${query}`;
+            newQueryElement.innerHTML = `<img id="image-preview-${query}" src="#" alt="Image Preview" style="display:none; max-width: 500px; margin-bottom: 10px;"/>${query}`;
             const image = document.getElementById("query-file").files[0];
 
             if (file) {
