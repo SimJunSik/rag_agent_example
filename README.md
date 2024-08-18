@@ -63,7 +63,7 @@ source venv/bin/activate
 ```
 git clone https://github.com/SimJunSik/rag_agent_example.git
 
-cd rag_agent_ex
+cd rag_agent_example
 ```
 
 ### 라이브러리 설치
