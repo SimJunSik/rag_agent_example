@@ -83,6 +83,9 @@ OPENAI_API_KEY=your_openai_api_key_here
 uvicorn main:app --reload
 ```
 
+* 만약, 최초 서버 실행 후 파일 업로드가 실패한다면 **터미널 종료 후** 가상 환경 활성화 후에 서버를 **다시 실행** 해주세요.
+
+
 ### UI
 ```
 http://127.0.0.1:8000/
